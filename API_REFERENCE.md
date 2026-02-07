@@ -7,7 +7,7 @@ The AckState SDK provides a simple way to consume webhook events with guaranteed
 ## Installation
 
 ```bash
-npm install @solomicros/ackstate
+npm install @ackstate/js-sdk
 ```
 
 ## Classes
@@ -30,7 +30,7 @@ new Inbox(config)
 
 **Example:**
 ```javascript
-import { Inbox } from '@solomicros/ackstate';
+import { Inbox } from '@ackstate/js-sdk';
 
 const inbox = new Inbox({
   apiKey: process.env.ACK_STATE_API_KEY,
@@ -160,7 +160,7 @@ try {
 ## Usage Pattern
 
 ```javascript
-import { Inbox, LeaseLostError, NetworkError } from '@solomicros/ackstate';
+import { Inbox, LeaseLostError, NetworkError } from '@ackstate/js-sdk';
 
 const inbox = new Inbox({
   apiKey: process.env.ACK_STATE_API_KEY,

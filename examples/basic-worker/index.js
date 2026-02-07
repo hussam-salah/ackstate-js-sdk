@@ -1,4 +1,4 @@
-import { Inbox, LeaseLostError, NetworkError } from "@solomicros/ackstate-sdk";
+import { Inbox, LeaseLostError, NetworkError } from "@ackstate/js-sdk";
 
 const inbox = new Inbox({
   apiKey: process.env.API_KEY,
@@ -9,14 +9,14 @@ const inbox = new Inbox({
 const delay = (ms) =>
   new Promise(resolve => setTimeout(resolve, ms));
 
-async function handle(payload) {
+async function processEvent(payload) {
   // Simulate business logic
   console.log("Processing event:", payload);
   // Simulate 1 second of processing
   await delay(1000);
 
-  // Uncomment to simulate failure
-  // throw new Error("simulated failure");
+  // Uncomment to processing failure
+  // throw new Error("processing failure");
 }
 
 async function run() {
@@ -40,7 +40,7 @@ async function run() {
     }
 
     try {
-      await handle(payload);
+      await processEvent(payload);
       await inbox.ack(event);
       console.log(`ACKED event ${event.id}`);
     } catch (err) {

@@ -27,10 +27,11 @@ export class Inbox {
 
     const event = {
       id: res.event.id,
-      attempt: res.event.attempt,
-      receivedAt: res.event.received_at,
       headers: res.event.headers,
       body: Buffer.from(res.event.body, "base64"),
+      receivedAt: res.event.received_at,
+      leasedAt: res.event.leased_at,
+      expiresAt: res.event.expires_at,
     };
 
     this.#activeEventIds.add(event.id);

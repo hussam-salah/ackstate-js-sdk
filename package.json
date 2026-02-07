@@ -1,19 +1,28 @@
 {
-  "name": "@solomicros/ackstate-sdk",
-  "version": "0.0.0",
-  "private": true,
-  "type": "module",
+  "name": "@ackstate/js-sdk",
+  "version": "0.1.0",
+  "description": "Lightweight JavaScript SDK for ackstate event delivery & tracking",
   "main": "src/index.js",
-  "files": [
-    "src"
-  ],
-  "scripts": {
-    "clean": "rm -rf dist"
+  "exports": {
+    ".": "./src/index.js"
   },
+  "type": "module",
+  "files": ["src"],
+  "scripts": {},
   "dependencies": {
     "undici": "^6.0.0"
   },
   "engines": {
     "node": ">=18"
+  },
+  "keywords": ["ackstate", "events", "webhooks", "ingest", "sdk"],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ackstate/ackstate-js-sdk.git"
+  },
+  "homepage": "https://github.com/ackstate/ackstate-js-sdk#readme",
+  "bugs": {
+    "url": "https://github.com/ackstate/ackstate-js-sdk/issues"
   }
 }

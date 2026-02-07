@@ -4,13 +4,13 @@
 
 ### Install
 ```bash
-npm install @solomicros/ackstate
+npm install @ackstate/js-sdk
 ```
 
 ### Basic Usage
 
 ```javascript
-import { Inbox, LeaseLostError, NetworkError } from "@solomicros/ackstate";
+import { Inbox, LeaseLostError, NetworkError } from "@ackstate/js-sdk";
 
 const inbox = new Inbox({
   apiKey: process.env.ACK_STATE_API_KEY,

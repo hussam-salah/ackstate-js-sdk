@@ -1,11 +1,12 @@
 {
   "name": "basic-worker",
-  "private": true,
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
-    "@solomicros/ackstate-sdk": "file:../.."
+    "@ackstate/js-sdk": "file:../..",
+    "dotenv": "^17.2.4"
   }
 }
