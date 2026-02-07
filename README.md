@@ -72,5 +72,5 @@ run().catch(console.error);
 
 ### API Reference
 
-For detailed API documentation, see [API_REFERENCE.md](API_REFERENCE.md).
+For detailed API documentation, see [Docs](https://github.com/hussam-salah/ackstate-js-sdk/blob/main/docs/getting-started.md).
 
