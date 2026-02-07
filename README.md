@@ -1,4 +1,4 @@
-# AckState NodeJs SDK
+# AckState JavaScript SDK
 
 ### **An event is a fact: it exists once received, is seen once delivered, and is done only when acknowledged.**
 
@@ -13,7 +13,7 @@ npm install @solomicros/ackstate
 import { Inbox, LeaseLostError, NetworkError } from "@solomicros/ackstate";
 
 const inbox = new Inbox({
-  apiKey: process.env.ACK_STATE_API_KEY!,
+  apiKey: process.env.ACK_STATE_API_KEY,
   projectId: "proj_123",
   consumerId: "worker-1",
 });
@@ -42,19 +42,18 @@ async function run() {
         throw err;
       }
 
-      await inbox.fail(event, err instanceof Error ? err.message : undefined;);
+      await inbox.fail(event, err instanceof Error ? err.message : undefined);
     }
   }
 }
 
 run().catch(console.error);
-
 ```
 
 ### Note
-- Each pulled event with `inbox.next()` get leased for 5 seconds
+- Each pulled event with `inbox.next()` gets leased for 5 seconds
 - In this lease period, `inbox.ack()` or `inbox.fail()` is expected
-- If the event wasn't acked or failed, it will be eligable to be pulled again  
+- If the event wasn't acked or failed, it will be eligible to be pulled again  
 
 ### Guarantees
 
@@ -64,11 +63,14 @@ run().catch(console.error);
 - "Replay is explicit and intentional"
 - "The SDK never hides state or guesses outcomes"
 
-
 ### What This SDK Does Not Do
 - Retry your business logic
 - Auto-extend leases
 - Parse payloads
 - Hide failures
 - Infer success
+
+### API Reference
+
+For detailed API documentation, see [API_REFERENCE.md](API_REFERENCE.md).
 

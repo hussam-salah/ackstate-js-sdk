@@ -4,7 +4,7 @@ This example shows the complete, correct way to consume webhook events.
 
 ## Setup
 
-1. Add your API_KEY and PROJECT_ID in index.ts
+1. Add your API_KEY, PROJECT_ID, and CONSUMER_ID in index.ts
 
 2. Run
 

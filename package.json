@@ -3,21 +3,15 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "src/index.js",
   "files": [
-    "dist"
+    "src"
   ],
   "scripts": {
-    "build": "tsc",
     "clean": "rm -rf dist"
   },
   "dependencies": {
     "undici": "^6.0.0"
-  },
-  "devDependencies": {
-    "@types/node": "^25.0.10",
-    "typescript": "^5.3.0"
   },
   "engines": {
     "node": ">=18"
