@@ -143,7 +143,6 @@ For complete endpoint details, request/response schemas, and examples, see the [
 ## Need Help?
 
 - Check the [API Reference](./api-reference.md) for detailed endpoint documentation.
-- Visit the [GitHub repository](https://github.com/hussam-salah/ackledger) for the open‑source server code.
-- Contact support at **support@ackstate.com** for Alpha‑program questions.
+- Contact support at **team@ackstate.com** for Alpha‑program questions.
 
-Welcome to ackstate Ledger! 🚀
+Welcome to AckState Ledger! 🚀
