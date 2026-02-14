@@ -1,6 +1,6 @@
-# AckLedger API Reference
+# AckState API Reference
 
-This document describes the public REST API endpoints for AckLedger, a webhook ingestion and event processing service.
+This document describes the public REST API endpoints for AckState, a webhooks/events ingestion service.
 
 All endpoints are prefixed with `/v1/`. Authentication is via API key passed in the `Authorization` header as `Bearer <api_key>`.
 

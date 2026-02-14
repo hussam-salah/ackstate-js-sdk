@@ -1,6 +1,9 @@
-# Getting Started with AckLedger
+# Getting Started with AckState
 
-AckLedger is a webhook ingestion and event processing service that guarantees at‑least‑once delivery with built‑in retries, leasing, and dead‑letter queues. This guide walks you through the steps to start using AckLedger.
+AckState is a webhooks/events ingestion layer service, that guarantees at‑least‑once delivery.
+
+This guide walks you through the steps to start using AckState.
+
 
 ## 1. Request Alpha Access
 
@@ -32,7 +35,7 @@ Authorization: Bearer sk_live_...
 
 ## 6. Start Ingesting Webhooks
 
-Send webhooks to AckLedger using the [Ingest API](./api-reference.md#ingest-endpoints).
+Send webhooks to AckState using the [Ingest API](./api-reference.md#ingest-endpoints).
 
 **Example with cURL:**
 
@@ -90,28 +93,29 @@ yarn add @ackstate/js-sdk
 **Basic usage:**
 
 ```javascript
-import { AckLedgerClient } from '@ackstate/js-sdk';
+import { Inbox } from '@ackstate/js-sdk';
 
-const client = new AckLedgerClient({
-  apiKey: 'sk_live_...',
-  projectId: 'proj_abc123'
+const inbox = new Inbox({
+  apiKey: process.env.ACK_STATE_API_KEY,
+  projectId: "proj_123",
+  consumerId: "worker-1",
 });
 
 // Ingest a webhook
-const { id } = await client.ingest({
+const { id } = await inbox.ingest({
   provider: 'stripe',
   headers: { 'stripe-signature': '...' },
   body: { id: 'evt_123', ... }
 });
 
 // Lease and process events
-const event = await client.leaseNext('worker-1');
+const event = await inbox.next();
 if (event) {
   try {
     await processEvent(event);
-    await client.ack(event.id, 'worker-1');
+    await inbox.ack(event.id, 'worker-1');
   } catch (err) {
-    await client.fail(event.id, 'worker-1', err.message);
+    await inbox.fail(event.id, 'worker-1', err.message);
   }
 }
 ```
@@ -121,15 +125,16 @@ if (event) {
 
 ---
 
-## 9. Explore the API Reference
+## 9. Resources
 
-For complete endpoint details, request/response schemas, and examples, see the [API Reference](./api-reference.md).
+- To understand more about how event state transitions, check [Event States](./events-states.md)
+- For complete endpoint details, request/response schemas, and examples, see the [API Reference](./api-reference.md).
+- We are also providing this [postman collection](./ackstate-APIs.postman_collection.json) ready to use.
 
 ---
 
 ## Need Help?
 
-- Check the [API Reference](./api-reference.md) for detailed endpoint documentation.
-- Contact support at **team@ackstate.com** for Alpha‑program questions.
+Contact support at **team@ackstate.com** for Alpha‑program questions.
 
-Welcome to AckState Ledger! 🚀
+Welcome to AckState! 🚀

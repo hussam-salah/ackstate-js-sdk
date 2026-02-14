@@ -1,7 +1,7 @@
 {
   "info": {
     "name": "ackstate APIs",
-    "description": "Subset of AckLedger Backend Service: APIs for client workflows (ingest, pull, ACK, fail, replay).",
+    "description": "Subset of AckState Backend Service: APIs for client workflows (ingest, pull, ACK, fail, replay).",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
