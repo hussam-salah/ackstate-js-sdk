@@ -51,7 +51,7 @@ run().catch(console.error);
 ```
 
 ### Note
-- Each pulled event with `inbox.next()` gets leased for 5 seconds
+- Each pulled event with `inbox.next()` gets leased for 20 seconds
 - In this lease period, `inbox.ack()` or `inbox.fail()` is expected
 - If the event wasn't acked or failed, it will be eligible to be pulled again  
 

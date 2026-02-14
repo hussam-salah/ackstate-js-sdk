@@ -1,0 +1,380 @@
+{
+  "info": {
+    "name": "ackstate APIs",
+    "description": "Subset of AckLedger Backend Service: APIs for client workflows (ingest, pull, ACK, fail, replay).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "APIs for Client",
+      "item": [
+        {
+          "name": "1. Ingest Event",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{api_key}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Stripe-Signature",
+                "value": "t=1234567890,v1=abc123"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"id\": \"evt_123\", \"type\": \"payment.succeeded\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/v1/projects/{{project_id}}/ingestions",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v1",
+                "projects",
+                "{{project_id}}",
+                "ingestions"
+              ]
+            },
+            "description": "Ingestion endpoint. Saves event_id to environment for later use."
+          },
+          "response": []
+        },
+        {
+          "name": "2. Pull Next Event",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "packages": {},
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{api_key}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"projectId\": \"{{project_id}}\",\n    \"consumerId\": \"{{consumer_id}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v1/events/next",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v1",
+                "events",
+                "next"
+              ]
+            },
+            "description": "Poll for next available event. Returns 200 with LeasedEvent or 204 if no events."
+          },
+          "response": []
+        },
+        {
+          "name": "3. ACK Event",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{api_key}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"consumerId\": \"{{consumer_id}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v1/events/{{ackstate-event-id}}/acks",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v1",
+                "events",
+                "{{ackstate-event-id}}",
+                "acks"
+              ]
+            },
+            "description": "ACK an event with active lease. Should return 200 OK."
+          },
+          "response": []
+        },
+        {
+          "name": "4. FAIL Event",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "content-type": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{api_key}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"consumerId\": \"{{consumer_id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/v1/events/{{ackstate-event-id}}/failures",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v1",
+                "events",
+                "{{ackstate-event-id}}",
+                "failures"
+              ]
+            },
+            "description": "FAIL an event with active lease. Should return 200 OK."
+          },
+          "response": []
+        },
+        {
+          "name": "5. Replay Event",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{api_key}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{base_url}}/v1/events/{{ackstate-event-id}}/replays",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v1",
+                "events",
+                "{{ackstate-event-id}}",
+                "replays"
+              ]
+            },
+            "description": "Replay an ACKed event. Should return 200 OK and reset state to RECEIVED."
+          },
+          "response": []
+        }
+      ],
+      "description": "APIs:\n\n1. Ingest event\n    \n2. Pull next event\n    \n3. ACK event\n    \n4. Replay event\n    \n5. FAIL event"
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": ""
+    },
+    {
+      "key": "project_id",
+      "value": ""
+    },
+    {
+      "key": "consumer_id",
+      "value": ""
+    },
+    {
+      "key": "api_key",
+      "value": ""
+    },
+    {
+      "key": "ackstate-event-id",
+      "value": ""
+    }
+  ]
+}

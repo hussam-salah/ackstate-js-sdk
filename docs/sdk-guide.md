@@ -103,10 +103,11 @@ Events returned by `inbox.next()` have the following structure:
 ```javascript
 {
   id: string,           // Unique event identifier
-  attempt: number,      // Attempt number (starts at 1)
-  receivedAt: string,   // ISO timestamp when event was received
   headers: Object,      // HTTP headers from the original webhook
   body: Buffer          // Raw payload as Buffer
+  receivedAt: string,   // ISO timestamp when event was received
+  leasedAt: string,     // ISO timestamp when event was leased (pulled)
+  expiresAt: string     // ISO timestamp when event lease will expire
 }
 ```
 
@@ -114,7 +115,7 @@ Events returned by `inbox.next()` have the following structure:
 ```javascript
 const event = await inbox.next();
 console.log(event.id);           // 'evt_abc123'
-console.log(event.attempt);      // 1
+console.log(event.headers);      // json map
 console.log(event.receivedAt);   // '2024-01-01T12:00:00Z'
 
 // Parse JSON payload
@@ -210,7 +211,7 @@ run().catch(console.error);
 ## Guarantees
 
 - **Exactly-once delivery**: Each event is delivered to only one consumer at a time
-- **Lease-based**: Events are leased for 5 seconds after being pulled
+- **Lease-based**: Events are leased for 20 seconds after being pulled
 - **Explicit acknowledgment**: Events must be explicitly acked or failed
 - **Safe retries**: Failed events can be retried without data loss
 - **No hidden state**: The SDK never hides failures or guesses outcomes

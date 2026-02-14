@@ -49,12 +49,10 @@ Send webhooks to AckLedger using the [Ingest API](./api-reference.md#ingest-endp
 **Example with cURL:**
 
 ```bash
-curl -X POST https://api.ackstate.com/v1/ingest/proj_abc123 \
-  -H "Content-Type: application/json" \
+curl -X POST https://api.ackstate.com/v1/projects/proj_abc123/ingestions \
+  -H "Authorization: Bearer sk_live_..."
   -d '{"event":"payment.succeeded","id":"evt_123"}'
 ```
-
-You can also use provider‑hinted endpoints (e.g., `/v1/ingest/stripe/proj_abc123`) to improve provider detection.
 
 ---
 
@@ -66,24 +64,29 @@ Consume events using the [Pull API](./api-reference.md#event-pull-endpoints). Le
 
 1. **Lease next event:**
    ```bash
-   curl "https://api.ackstate.com/v1/events/next?projectId=proj_abc123&consumerId=worker-1" \
-     -H "Authorization: Bearer sk_live_..."
+      curl -X POST https://api.ackstate.com/v1/events/next
+      -H "Authorization: Bearer sk_live_..."
+      -d "{
+      "projectId": "proj_abc123",
+      "consumerId": "local-consumer-1"
+      }"
    ```
 
 2. **Process the event** (your business logic).
 
 3. **Acknowledge successful processing:**
    ```bash
-   curl -X POST "https://api.ackstate.com/v1/events/evt_123/ack?consumerId=worker-1" \
-     -H "Authorization: Bearer sk_live_..."
+   curl -X POST "https://api.ackstate.com/v1/events/evt_123/acks \
+   -H "Authorization: Bearer sk_live_..."
+   -d "{ "consumerId": "consumerId=worker-1" }"
    ```
 
 4. **If processing fails,** mark the event as failed with a reason:
    ```bash
-   curl -X POST "https://api.ackstate.com/v1/events/evt_123/fail?consumerId=worker-1" \
-     -H "Authorization: Bearer sk_live_..." \
-     -H "Content-Type: text/plain" \
-     -d "Downstream service timeout"
+   curl -X POST "https://api.ackstate.com/v1/events/evt_123/failures" \
+   -H "Authorization: Bearer sk_live_..." \
+   -H "Content-Type: text/plain" \
+   -d "{"consumerId": "worker-1", "reason" : "Downstream service timeout"}"
    ```
 
 ---

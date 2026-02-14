@@ -1,6 +1,6 @@
 {
   "name": "@ackstate/js-sdk",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Lightweight JavaScript SDK for ackstate event delivery & tracking",
   "main": "src/index.js",
   "exports": {
