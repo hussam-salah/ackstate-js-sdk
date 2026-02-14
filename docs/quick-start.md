@@ -1,6 +1,6 @@
 # Quick Start
 
-1. Create a project
+1. Create a project after signing in at https://ackstate.com/dashboard/settings
 2. Create API Key
 
 3. Start ingesting, example

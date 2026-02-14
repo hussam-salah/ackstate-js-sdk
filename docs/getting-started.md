@@ -2,33 +2,23 @@
 
 AckLedger is a webhook ingestion and event processing service that guarantees at‑least‑once delivery with built‑in retries, leasing, and dead‑letter queues. This guide walks you through the steps to start using AckLedger.
 
----
-
 ## 1. Request Alpha Access
 
 Visit [ackstate.com](https://ackstate.com) and request Alpha Access with your email address.
 
 You’ll receive an invitation email with a temporary password and a link to the dashboard.
 
----
-
 ## 2. Sign In
 
 Go to [ackstate.com/sign‑in](https://ackstate.com/sign‑in) and log in using the credentials from the invitation email.
-
----
 
 ## 3. Update Your Password (Optional but Recommended)
 
 After your first login, you can update your password in the account settings for better security.
 
----
-
 ## 4. Create a Project
 
 In settings > projects, click **“Create Project”** and give your project a name (e.g., “prod service-x webhooks”). Each project gets a unique `projectId` that you’ll use in API calls.
-
----
 
 ## 5. Generate an API Key
 
@@ -39,8 +29,6 @@ Use this key in the `Authorization` header as a Bearer token:
 ```
 Authorization: Bearer sk_live_...
 ```
-
----
 
 ## 6. Start Ingesting Webhooks
 
@@ -53,8 +41,6 @@ curl -X POST https://api.ackstate.com/v1/projects/proj_abc123/ingestions \
   -H "Authorization: Bearer sk_live_..."
   -d '{"event":"payment.succeeded","id":"evt_123"}'
 ```
-
----
 
 ## 7. Process Events
 
@@ -88,8 +74,6 @@ Consume events using the [Pull API](./api-reference.md#event-pull-endpoints). Le
    -H "Content-Type: text/plain" \
    -d "{"consumerId": "worker-1", "reason" : "Downstream service timeout"}"
    ```
-
----
 
 ## 8. Use the SDK (Optional)
 
